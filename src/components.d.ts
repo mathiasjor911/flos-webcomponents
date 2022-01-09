@@ -6,6 +6,22 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface FlosAccordion {
+    }
+    interface FlosAccordionPanel {
+        /**
+          * Prop der bestemmer om panelet er åbent eller ej
+         */
+        "expanded"?: boolean;
+        /**
+          * Title til accordion panel
+         */
+        "heading": string;
+        /**
+          * Plads til uddybende tekst
+         */
+        "subtitle"?: string;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +38,18 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFlosAccordionElement extends Components.FlosAccordion, HTMLStencilElement {
+    }
+    var HTMLFlosAccordionElement: {
+        prototype: HTMLFlosAccordionElement;
+        new (): HTMLFlosAccordionElement;
+    };
+    interface HTMLFlosAccordionPanelElement extends Components.FlosAccordionPanel, HTMLStencilElement {
+    }
+    var HTMLFlosAccordionPanelElement: {
+        prototype: HTMLFlosAccordionPanelElement;
+        new (): HTMLFlosAccordionPanelElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +57,29 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "flos-accordion": HTMLFlosAccordionElement;
+        "flos-accordion-panel": HTMLFlosAccordionPanelElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface FlosAccordion {
+    }
+    interface FlosAccordionPanel {
+        /**
+          * Prop der bestemmer om panelet er åbent eller ej
+         */
+        "expanded"?: boolean;
+        /**
+          * Title til accordion panel
+         */
+        "heading"?: string;
+        "onOnExpand"?: (event: CustomEvent<string>) => void;
+        /**
+          * Plads til uddybende tekst
+         */
+        "subtitle"?: string;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +95,8 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "flos-accordion": FlosAccordion;
+        "flos-accordion-panel": FlosAccordionPanel;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +104,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "flos-accordion": LocalJSX.FlosAccordion & JSXBase.HTMLAttributes<HTMLFlosAccordionElement>;
+            "flos-accordion-panel": LocalJSX.FlosAccordionPanel & JSXBase.HTMLAttributes<HTMLFlosAccordionPanelElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
