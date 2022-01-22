@@ -1,7 +1,7 @@
 import { Component, h, State, Element, Listen } from '@stencil/core';
 @Component({
   tag: 'flos-accordion',
-	shadow:true
+  shadow: true,
 })
 export class FlosAccordion {
   // Giver os adgang til Host elementet
@@ -9,11 +9,12 @@ export class FlosAccordion {
   // State der skal holde styr på det aktive panel
   @State() activePanel: string = '';
 
-
   // Giver alle paneler et id vi kan lytte efter
   connectedCallback() {
     Array.from(this._allPanels()).forEach(p => {
-      p.setAttribute('id', 'panel-' + this.getId());
+      if (!p.hasAttribute('id')) {
+        p.setAttribute('id', 'panel-' + this.getId());
+      }
     });
   }
 
@@ -23,7 +24,7 @@ export class FlosAccordion {
     // Sætter det aktive panel til det ID der kom med eventet
     // fra Accordion Panel komponenten.
     this.activePanel = event.detail;
-		this._togglePanel();
+    this._togglePanel();
   }
 
   // Lytter efter keydown events
@@ -35,27 +36,27 @@ export class FlosAccordion {
     switch (e.key) {
       case 'Enter':
       case ' ':
-				this.activePanel = panel.id
-				this._togglePanel()
+        this.activePanel = panel.id;
+        this._togglePanel();
     }
   }
 
-	private _togglePanel(){
-		let panels = this._allPanels();
+  private _togglePanel() {
+    let panels = this._allPanels();
     panels.forEach(panel => {
       if (panel.id == this.activePanel) {
         if (panel.expanded) {
           this.activePanel = '';
-          panel.setAttribute('expanded', 'false');
+          panel.expanded = false;
           return;
         }
-        panel.setAttribute('expanded', 'true');
+        panel.expanded = true;
         return;
       } else {
-        panel.setAttribute('expanded', 'false');
+        panel.expanded = false;
       }
-    })
-	}
+    });
+  }
 
   private getId() {
     let id = Math.floor(Math.random() * 10000);

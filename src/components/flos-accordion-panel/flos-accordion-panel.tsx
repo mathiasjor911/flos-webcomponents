@@ -1,4 +1,4 @@
-import { Component, Prop, h, Fragment, Event, EventEmitter, Element } from '@stencil/core';
+import { Component, Prop, h, Host, Event, EventEmitter, Element } from '@stencil/core';
 
 @Component({
   tag: 'flos-accordion-panel',
@@ -18,23 +18,25 @@ export class FlosAccordionPanel {
   /**
    * Prop der bestemmer om panelet er åbent eller ej
    */
-  @Prop() expanded?: boolean = false;
+  @Prop({ mutable: true }) expanded?: boolean = false;
 
 	@Event({bubbles: true, composed: true}) expand: EventEmitter<string>;
-
 	handleExpand(id: string){
 		this.expand.emit(id);
 	}
 
+  toggleExpand(){
+    this.expanded = !this.expanded
+  }
+
   render() {
     return (
-      <Fragment>
+      <Host onClick={() => this.handleExpand(this.host.id)}>
         <div
           class="accordion-heading"
           aria-expanded={this.expanded ? 'true' : 'false'}
           role="button"
           tabIndex={0}
-					onClick={() => this.handleExpand(this.host.id) }
         >
           <h4>{this.heading}</h4>
           {this.subtitle && <p>{this.subtitle}</p>}
@@ -55,7 +57,7 @@ export class FlosAccordionPanel {
         <div class="accordion-panel">
           <slot></slot>
         </div>
-      </Fragment>
+      </Host>
     );
   }
 }
