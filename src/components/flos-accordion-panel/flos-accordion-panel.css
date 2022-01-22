@@ -6,6 +6,7 @@
   padding: 16px;
   position: relative;
   transition: all 0.2s, outline 0s;
+  cursor: pointer;
 }
 .panel-heading:hover {
   background-color: #e4eaef;
