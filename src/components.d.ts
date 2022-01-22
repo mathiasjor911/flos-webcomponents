@@ -74,7 +74,7 @@ declare namespace LocalJSX {
           * Title til accordion panel
          */
         "heading"?: string;
-        "onOnExpand"?: (event: CustomEvent<string>) => void;
+        "onExpand"?: (event: CustomEvent<string>) => void;
         /**
           * Plads til uddybende tekst
          */

@@ -1,23 +1,29 @@
 import { Component, h, State, Element, Listen } from '@stencil/core';
 @Component({
   tag: 'flos-accordion',
-  styleUrl: 'flos-accordion.css',
 	shadow:true
 })
-export class Accordion {
+export class FlosAccordion {
   // Giver os adgang til Host elementet
   @Element() host: HTMLElement;
   // State der skal holde styr på det aktive panel
   @State() activePanel: string = '';
 
-  // Lytter efter eventemittet i Accordion Panel
-  @Listen('onExpand', { capture: true })
+
+  // Giver alle paneler et id vi kan lytte efter
+  connectedCallback() {
+    Array.from(this._allPanels()).forEach(p => {
+      p.setAttribute('id', 'panel-' + this.getId());
+    });
+  }
+
+  // Lytter efter event emittet fra Accordion Panel
+  @Listen('expand')
   onExpandHandler(event: CustomEvent<string>) {
     // Sætter det aktive panel til det ID der kom med eventet
     // fra Accordion Panel komponenten.
     this.activePanel = event.detail;
 		this._togglePanel();
-    ;
   }
 
   // Lytter efter keydown events
@@ -50,13 +56,6 @@ export class Accordion {
       }
     })
 	}
-
-  // Giver alle paneler et id vi kan lytte efter
-  connectedCallback() {
-    Array.from(this._allPanels()).forEach(p => {
-      p.setAttribute('id', 'panel-' + this.getId());
-    });
-  }
 
   private getId() {
     let id = Math.floor(Math.random() * 10000);

@@ -2,9 +2,9 @@ import { Component, Prop, h, Fragment, Event, EventEmitter, Element } from '@ste
 
 @Component({
   tag: 'flos-accordion-panel',
-  styleUrl: 'flos-accordion.css',
+  styleUrl: 'flos-accordion-panel.css',
 })
-export class AccordionPanel {
+export class FlosAccordionPanel {
 	// Giver os adgang til Host elementet
 	@Element() host: HTMLElement;
   /**
@@ -20,10 +20,10 @@ export class AccordionPanel {
    */
   @Prop() expanded?: boolean = false;
 
-	@Event({bubbles: true, composed: true}) onExpand: EventEmitter<string>;
+	@Event({bubbles: true, composed: true}) expand: EventEmitter<string>;
 
 	handleExpand(id: string){
-		this.onExpand.emit(id);
+		this.expand.emit(id);
 	}
 
   render() {
