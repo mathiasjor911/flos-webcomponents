@@ -1,24 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Renders correctly w/ subtitle 1`] = `
+exports[`Accordion with panels Renders correctly w/ subtitle 1`] = `
 <flos-accordion>
   <mock:shadow-root>
     <slot></slot>
   </mock:shadow-root>
-  <flos-accordion-panel id="test">
+  <flos-accordion-panel id="test" panel-id="0">
     <!---->
-    <div aria-expanded="false" class="accordion-heading" role="button" tabindex="0">
-      <h4>
-        Udvidet elforsikring
-      </h4>
-      <p>
-        Erstatter din elektronik til nyværdi, indtil tingene er fire år gamle.
-      </p>
-      <svg fill="none" height="24" stroke="#131947" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
+    <div aria-controls="panel-0" aria-expanded="false" class="panel-heading" id="panel-heading-0" role="button" tabindex="0">
+      <span>
+        <h4>
+          Udvidet elforsikring
+        </h4>
+        <p>
+          Erstatter din elektronik til nyværdi, indtil tingene er fire år gamle.
+        </p>
+        <svg fill="none" height="24" stroke="#131947" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </span>
     </div>
-    <div class="accordion-panel">
+    <div aria-labelledby="panel-heading-0" class="panel-body" id="panel-0">
       <p>
         Den udvidede elektronikforsikring gør individuelle elektronikforsikringer overflødige.
       </p>
@@ -27,22 +29,24 @@ exports[`Renders correctly w/ subtitle 1`] = `
 </flos-accordion>
 `;
 
-exports[`Renders correctly w/o subtitle 1`] = `
+exports[`Accordion with panels Renders correctly w/o subtitle 1`] = `
 <flos-accordion>
   <mock:shadow-root>
     <slot></slot>
   </mock:shadow-root>
-  <flos-accordion-panel id="test">
+  <flos-accordion-panel id="test" panel-id="0">
     <!---->
-    <div aria-expanded="false" class="accordion-heading" role="button" tabindex="0">
-      <h4>
-        Udvidet elforsikring
-      </h4>
-      <svg fill="none" height="24" stroke="#131947" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
+    <div aria-controls="panel-0" aria-expanded="false" class="panel-heading" id="panel-heading-0" role="button" tabindex="0">
+      <span>
+        <h4>
+          Udvidet elforsikring
+        </h4>
+        <svg fill="none" height="24" stroke="#131947" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </span>
     </div>
-    <div class="accordion-panel">
+    <div aria-labelledby="panel-heading-0" class="panel-body" id="panel-0">
       <p>
         Den udvidede elektronikforsikring gør individuelle elektronikforsikringer overflødige.
       </p>
