@@ -1,72 +1,61 @@
-import { Component, h, State, Element, Listen } from '@stencil/core';
+import { Component, Prop, h, State, Element, Watch, Listen } from '@stencil/core';
 @Component({
   tag: 'flos-accordion',
   shadow: true,
 })
-export class FlosAccordion {
-  // Giver os adgang til Host elementet
+export class Accordion {
   @Element() host: HTMLElement;
-  // State der skal holde styr på det aktive panel
-  @State() activePanel: string = '';
+  /** Prop for controlling which panel is expanded.*/
+  @Prop({ mutable: true, reflect: true }) activeIndex?: string;
+  /** Internal state for controlling the current open panel */
+  @State() activePanel: string;
 
-  // Giver alle paneler et id vi kan lytte efter
+  @Watch('activePanel')
+  watchActivePanel(newValue: string) {
+    this.expandActivePanel(newValue);
+  }
+  // Runs when component is declared
   connectedCallback() {
-    Array.from(this._allPanels()).forEach(p => {
-      if (!p.hasAttribute('id')) {
-        p.setAttribute('id', 'panel-' + this.getId());
-      }
+    this.allPanels().forEach((panel, index) => {
+      panel.panelId = index.toString();
+      panel.toggle = () => this.updateState(panel.panelId);
     });
   }
-
-  // Lytter efter event emittet fra Accordion Panel
-  @Listen('expand')
-  onExpandHandler(event: CustomEvent<string>) {
-    // Sætter det aktive panel til det ID der kom med eventet
-    // fra Accordion Panel komponenten.
-    this.activePanel = event.detail;
-    this._togglePanel();
+  // Runs before the components first render
+  componentWillRender() {
+    if (this.activeIndex && this.activeIndex !== this.activePanel) {
+      this.activePanel = this.activeIndex;
+    }
   }
 
-  // Lytter efter keydown events
+  // Eventlistener for keyboard events
   @Listen('keydown', { capture: true })
-  handleKeyDown(e: any) {
+  onKeyDown(e: any) {
     let eventTarget = [e.target];
     let panel = eventTarget[0].parentElement;
 
     switch (e.key) {
       case 'Enter':
       case ' ':
-        this.activePanel = panel.id;
-        this._togglePanel();
+        this.updateState(panel.panelId);
     }
   }
 
-  private _togglePanel() {
-    let panels = this._allPanels();
-    panels.forEach(panel => {
-      if (panel.id == this.activePanel) {
-        if (panel.expanded) {
-          this.activePanel = '';
-          panel.expanded = false;
-          return;
-        }
-        panel.expanded = true;
-        return;
-      } else {
-        panel.expanded = false;
-      }
+  private allPanels = () => Array.from(this.host.querySelectorAll('flos-accordion-panel'));
+
+  private updateState(panelId: string) {
+    const newActivePanel = this.activePanel === panelId ? '' : panelId;
+    this.activePanel = newActivePanel;
+    this.activeIndex = this.activePanel;
+  }
+
+  private expandActivePanel(activePanel) {
+    this.allPanels().forEach(panel => {
+      panel.expanded = panel.panelId === activePanel;
     });
   }
 
-  private getId() {
-    let id = Math.floor(Math.random() * 10000);
-    return id;
-  }
-
-  // Får alle vores paneler i et array
-  private _allPanels = () => Array.from(this.host.querySelectorAll('flos-accordion-panel'));
-
   render() {
-    return <slot></slot>;
+    return <slot />;
   }
 }

@@ -1,4 +1,4 @@
-.accordion-heading {
+.panel-heading {
   background: transparent;
   border-bottom: 1px solid #cad7e0;
   display: block;
@@ -7,52 +7,52 @@
   position: relative;
   transition: all 0.2s, outline 0s;
 }
-.accordion-heading:hover {
+.panel-heading:hover {
   background-color: #e4eaef;
   border-bottom: 1px solid #53759b;
 }
-.accordion-heading:focus {
+.panel-heading:focus {
   outline: 3px solid #63aedb;
 }
-.accordion-heading[aria-expanded='true'] {
+.panel-heading[aria-expanded='true'] {
   background-color: #eaf1f9;
   border-bottom: none;
 }
-.accordion-heading svg {
+.panel-heading svg {
   transition: all 0.2s;
   position: absolute;
   right: 16px;
   top: 16px;
 }
-.accordion-heading[aria-expanded='true'] svg {
+.panel-heading[aria-expanded='true'] svg {
   transform: rotate(-180deg);
 }
-.accordion-heading h4 {
+.panel-heading h4 {
   font-family: 'Mukta', sans-serif;
   font-size: 20px;
   color: #53759b;
   font-weight: 500;
   margin: 0;
 }
-.accordion-heading p {
+.panel-heading p {
   font-family: 'Mukta', sans-serif;
   color: #131947;
   margin-bottom: 0;
   margin-top: 5px;
   font-weight: 300;
 }
-.accordion-panel {
+.panel-body {
   display: none;
   background-color: #eaf1f9;
   padding: 20px;
 }
-.accordion-panel p {
+.panel-body p {
 	font-family: 'Mukta', sans-serif;
   margin: 0 0 16px;
   color: #131947;
   font-weight: 300;
 }
-.accordion-heading[aria-expanded='true'] + .accordion-panel {
+.panel-heading[aria-expanded='true'] + .panel-body {
   display: block;
 }
 

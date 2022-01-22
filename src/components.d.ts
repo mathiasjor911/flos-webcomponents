@@ -7,20 +7,32 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface FlosAccordion {
+        /**
+          * Prop for controlling which panel is expanded.
+         */
+        "activeIndex"?: string;
     }
     interface FlosAccordionPanel {
         /**
-          * Prop der bestemmer om panelet er åbent eller ej
+          * Boolean that controls wheter or not the panel is open
          */
-        "expanded"?: boolean;
+        "expanded": boolean;
         /**
-          * Title til accordion panel
+          * Sets the title of the Accordion Panel
          */
         "heading": string;
         /**
-          * Plads til uddybende tekst
+          * Uniqe ID for each accordion panel
+         */
+        "panelId": string;
+        /**
+          * Sets the subtitle of the Accordion Panel
          */
         "subtitle"?: string;
+        /**
+          * Prop passed by the Accordion wrapper to control panel toggle
+         */
+        "toggle": () => void;
     }
     interface MyComponent {
         /**
@@ -64,21 +76,32 @@ declare global {
 }
 declare namespace LocalJSX {
     interface FlosAccordion {
+        /**
+          * Prop for controlling which panel is expanded.
+         */
+        "activeIndex"?: string;
     }
     interface FlosAccordionPanel {
         /**
-          * Prop der bestemmer om panelet er åbent eller ej
+          * Boolean that controls wheter or not the panel is open
          */
         "expanded"?: boolean;
         /**
-          * Title til accordion panel
+          * Sets the title of the Accordion Panel
          */
         "heading"?: string;
-        "onExpand"?: (event: CustomEvent<string>) => void;
         /**
-          * Plads til uddybende tekst
+          * Uniqe ID for each accordion panel
+         */
+        "panelId"?: string;
+        /**
+          * Sets the subtitle of the Accordion Panel
          */
         "subtitle"?: string;
+        /**
+          * Prop passed by the Accordion wrapper to control panel toggle
+         */
+        "toggle"?: () => void;
     }
     interface MyComponent {
         /**
