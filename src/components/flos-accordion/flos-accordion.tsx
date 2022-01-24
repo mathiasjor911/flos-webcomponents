@@ -14,21 +14,21 @@ export class Accordion {
   watchActivePanel(newValue: string) {
     this.expandActivePanel(newValue);
   }
-  // Runs when component is declared
+  // Bliver kørt når komponenten bliver declared
   connectedCallback() {
     this.allPanels().forEach((panel, index) => {
       panel.panelId = index.toString();
       panel.toggle = () => this.updateState(panel.panelId);
     });
   }
-  // Runs before the components first render
+  // Bliver kørt før komponentens første render
   componentWillRender() {
     if (this.activeIndex && this.activeIndex !== this.activePanel) {
       this.activePanel = this.activeIndex;
     }
   }
 
-  // Eventlistener for keyboard events
+  // Eventlistener til keyboard events
   @Listen('keydown', { capture: true })
   onKeyDown(e: any) {
     let eventTarget = [e.target];
@@ -56,6 +56,6 @@ export class Accordion {
   }
 
   render() {
-    return <slot />;
+    return <slot />
   }
 }
